@@ -27,6 +27,7 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3.3.0
         with:
+          registry: ghcr.io
           username: ${{ steps.lower-credentials.outputs.actor }}
           password: ${{ secrets.GHCR_PAT }}
 
