@@ -1,10 +1,6 @@
 const http = require('http');
 const dns = require('dns');
 
-// Get the Pod IP address and name from the environment variable
-const portForwardedPodIP = process.env.PORT_FORWARDED_POD_IP || 'unknown-pod-ip';
-const portForwardedPodName = process.env.PORT_FORWARDED_POD_NAME || 'unknown-pod-name';
-
 // Define fully qualified domain name (FQDN) for DNS query
 const serviceName = 'node-app.default.svc.cluster.local';
 
@@ -45,7 +41,6 @@ const server = http.createServer((req, res) => {
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({
                 message: 'Hello World.',
-                portForwardedPodIP: portForwardedPodIP,
                 discoveredPodIP: address,
             }));
         });
@@ -61,6 +56,6 @@ server.listen(8080, () => {
             console.error('DNS lookup failed', err);
             return;
         }
-        console.log(`Pod IP: ${address} | Pod Name: ${portForwardedPodName} | Discovery Successful`);
+        console.log(`Discovered Pod IP: ${address}. Discovery Successful.`);
     });
 });
