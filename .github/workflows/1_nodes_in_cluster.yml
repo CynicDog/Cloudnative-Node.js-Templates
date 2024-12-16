@@ -34,8 +34,8 @@ jobs:
       - name: Build Docker image
         run: |
           cd ${{ env.PROJECT_DIR }} && \
-          docker build -t ghcr.io/${{ steps.lower-credentials.outputs.repository }}:latest .  
+          docker build -t ghcr.io/${{ steps.lower-credentials.outputs.repository }}/${{ env.APP_NAME }}:latest .  
 
       - name: Push Docker image to GHCR
         run: |
-          docker push ghcr.io/${{ steps.lower-credentials.outputs.repository }}:latest
+          docker push ghcr.io/${{ steps.lower-credentials.outputs.repository }}/${{ env.APP_NAME }}:latest
