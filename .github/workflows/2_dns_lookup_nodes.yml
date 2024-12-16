@@ -1,0 +1,41 @@
+name: Docker Build and Test
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    env:
+      APP_NAME: dns-lookup-nodes
+      PROJECT_DIR: 2_DNS_lookup_service_discovery
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.7
+
+      - id: lower-credentials
+        name: Lower Credentials
+        run: |
+          echo "actor=${GITHUB_ACTOR@L}" >> $GITHUB_OUTPUT
+          echo "repository=${GITHUB_REPOSITORY@L}" >> $GITHUB_OUTPUT
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3.3.0
+        with:
+          registry: ghcr.io
+          username: ${{ steps.lower-credentials.outputs.actor }}
+          password: ${{ secrets.GHCR_PAT }}
+
+      - name: Build Docker image
+        run: |
+          cd ${{ env.PROJECT_DIR }} && \
+          docker build -t ghcr.io/${{ steps.lower-credentials.outputs.repository }}/${{ env.APP_NAME }}:latest .  
+
+      - name: Push Docker image to GHCR
+        run: |
+          docker push ghcr.io/${{ steps.lower-credentials.outputs.repository }}/${{ env.APP_NAME }}:latest
