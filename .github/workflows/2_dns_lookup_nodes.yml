@@ -1,19 +1,20 @@
 name: Docker Build and Test
 
+env:
+  APP_NAME: dns-lookup-nodes
+  PROJECT_DIR: 2_DNS_lookup_service_discovery
+
 on:
   push:
     branches:
       - master
+    paths:
+      - ${{ env.PROJECT_DIR }}
   workflow_dispatch:
 
 jobs:
   build:
-    env:
-      APP_NAME: dns-lookup-nodes
-      PROJECT_DIR: 2_DNS_lookup_service_discovery
-
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.1.7

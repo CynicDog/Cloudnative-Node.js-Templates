@@ -1,8 +1,8 @@
 name: Docker Build and Test
 
 env:
-    APP_NAME: node-cluster-app
-    PROJECT_DIR: 1_nodes_in_cluster
+  APP_NAME: node-cluster-app
+  PROJECT_DIR: 1_nodes_in_cluster
 
 on:
   push:
@@ -15,7 +15,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4.1.7
