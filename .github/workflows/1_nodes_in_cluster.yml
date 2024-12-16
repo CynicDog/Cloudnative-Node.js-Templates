@@ -1,9 +1,9 @@
-name: Docker Build and Push to GHCR
+name: Docker Build and Test
 
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
@@ -18,28 +18,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4.1.7
 
-      - name: Set lower case credentials
-        id: lower-repo
-        shell: pwsh
+      - id: lower-credentials
+        name: Lower Credentials
         run: |
-          # Convert repository and actor to lowercase and set as environment variables
-          $repo = $env:GITHUB_REPOSITORY.ToLowerInvariant()
-          $actor = $env:GITHUB_ACTOR.ToLowerInvariant()
-          echo "REPO=$repo" >> $GITHUB_ENV
-          echo "ACTOR=$actor" >> $GITHUB_ENV
+          echo "actor=${{ github.actor@L }}" >> $GITHUB_OUTPUT
+          echo "repository=${{ github.repository@L }}" >> $GITHUB_OUTPUT
 
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3.3.0
         with:
-          username: ${{ env.ACTOR }}
+          username: ${{ steps.lower-credentials.outputs.actor }}
           password: ${{ secrets.GHCR_PAT }}
 
       - name: Build Docker image
         run: |
           cd ${{ env.PROJECT_DIR }} && \
-          docker build \
-            -t ghcr.io/${{ env.REPO }}:${{ github.sha }} . 
+          docker build -t ghcr.io/${{ steps.lower-credentials.outputs.repository }}:latest .  
 
       - name: Push Docker image to GHCR
         run: |
-          docker push ghcr.io/${{ env.REPO }}:${{ github.sha }}  
+          docker push ghcr.io/${{ steps.lower-credentials.outputs.repository }}:latest
