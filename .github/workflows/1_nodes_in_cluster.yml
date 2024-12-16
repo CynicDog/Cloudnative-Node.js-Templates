@@ -1,0 +1,26 @@
+name: Docker Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    env:
+      APP_NAME: node-cluster-app
+      PROJECT_DIR: 1_nodes_in_cluster
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.7
+
+      - name: Build and push Docker image
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GHCR_PAT }}
+        run: cd ${{ env.PROJECT_DIR }} && docker build -t ${{ env.APP_NAME }} .
