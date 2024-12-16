@@ -27,13 +27,12 @@ jobs:
           $actor = $env:GITHUB_ACTOR.ToLowerInvariant()
           echo "REPO=$repo" >> $GITHUB_ENV
           echo "ACTOR=$actor" >> $GITHUB_ENV
-          echo "GHCR_PAT=${{ secrets.GHCR_PAT }}" >> $GITHUB_ENV
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
         with:
           username: ${{ env.ACTOR }}
-          password: ${{ env.GHCR_PAT }}
+          password: ${{ secrets.GHCR_PAT }}
 
       - name: Build Docker image
         run: |
