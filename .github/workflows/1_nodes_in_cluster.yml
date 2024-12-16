@@ -38,8 +38,8 @@ jobs:
         run: |
           cd ${{ env.PROJECT_DIR }} && \
           docker build \
-            -t ghcr.io/${{ env.REPO }}:${{ github.sha }} .  # Tag the image with the GitHub repo name and SHA
+            -t ghcr.io/${{ env.REPO }}:${{ github.sha }} . 
 
       - name: Push Docker image to GHCR
         run: |
-          docker push ghcr.io/${{ env.REPO }}:${{ github.sha }}  # Push the image to GHCR
+          docker push ghcr.io/${{ env.REPO }}:${{ github.sha }}  
