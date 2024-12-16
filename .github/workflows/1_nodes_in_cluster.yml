@@ -1,17 +1,19 @@
 name: Docker Build and Test
 
+env:
+    APP_NAME: node-cluster-app
+    PROJECT_DIR: 1_nodes_in_cluster
+
 on:
   push:
     branches:
       - master
+    paths:
+      - ${{ env.PROJECT_DIR }}
   workflow_dispatch:
 
 jobs:
   build:
-    env:
-      APP_NAME: node-cluster-app
-      PROJECT_DIR: 1_nodes_in_cluster
-
     runs-on: ubuntu-latest
 
     steps:
