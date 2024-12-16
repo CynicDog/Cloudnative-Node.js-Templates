@@ -22,7 +22,11 @@ spec:
           env:
             - name: HTTP_PORT
               value: "8080"
-            - name: POD_NAME
+            - name: PORT_FORWARDED_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: PORT_FORWARDED_POD_NAME
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
