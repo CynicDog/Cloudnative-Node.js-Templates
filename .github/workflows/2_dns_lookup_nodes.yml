@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 2_DNS_lookup_service_discovery
+      - 2_DNS_lookup_service_discovery/*
   workflow_dispatch:
 
 env:

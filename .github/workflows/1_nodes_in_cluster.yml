@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 1_nodes_in_cluster
+      - 1_nodes_in_cluster/*
   workflow_dispatch:
 
 env:

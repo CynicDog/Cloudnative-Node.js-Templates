@@ -5,7 +5,7 @@
 $ 2_DNS_lookup_service_discovery> node src/main.js 
 ```
 
-### Run the Application on Kind (Kubernetes in Docker) 
+### Run the Application on Kind (Kubernetes in Docker)
 ```bash
 $ 2_DNS_lookup_service_discovery> kind create cluster --name=node-dns 
 $ 2_DNS_lookup_service_discovery> docker exec -it node-dns-control-plane /bin/bash 
