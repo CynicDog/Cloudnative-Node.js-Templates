@@ -1,5 +1,5 @@
 {
-  "name": "2_dns_lookup_service_discovery",
+  "name": "2_DNS_lookup_service_discovery_on_k8s",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

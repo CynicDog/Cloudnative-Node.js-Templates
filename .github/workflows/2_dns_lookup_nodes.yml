@@ -5,12 +5,12 @@ on:
     branches:
       - master
     paths:
-      - 2_DNS_lookup_service_discovery/*
+      - 2_DNS_lookup_service_discovery_on_k8s/*
   workflow_dispatch:
 
 env:
   APP_NAME: dns-lookup-nodes
-  PROJECT_DIR: 2_DNS_lookup_service_discovery
+  PROJECT_DIR: 2_DNS_lookup_service_discovery_on_k8s
 
 jobs:
   build:
