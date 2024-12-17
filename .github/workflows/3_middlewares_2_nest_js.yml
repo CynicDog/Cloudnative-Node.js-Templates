@@ -1,16 +1,16 @@
-name: 3_middlewares_1_koa_js
+name: 3_middlewares_2_nest_js
 
 on:
   push:
     branches:
       - master
     paths:
-      - 3_middlewares/1_koa_js/**
+      - 3_middlewares/2_nest_js/**
   workflow_dispatch:
 
 env:
   APP_NAME: middleware_koa_js
-  PROJECT_DIR: 3_middlewares/1_koa_js
+  PROJECT_DIR: 3_middlewares/2_nest_js
 
 jobs:
   build:
