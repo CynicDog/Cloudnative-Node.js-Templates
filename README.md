@@ -3,7 +3,7 @@
 ### Index 
 1. [A. Nodes in Cluster](#a-nodes-in-cluster)
 2. [B. DNS Lookup Service Discovery](#b-dns-lookup-service-discovery)
-3. [C. Middleware](#c-middleware)
+3. [C. Middlewares](#c-middlewares)
 
 <details><summary><h3>A. Nodes in Cluster</h3></summary>
 
@@ -83,7 +83,7 @@ Transfer-Encoding: chunked
 
 </details>
 
-<details><summary><h3>C. Middleware</h3></summary>
+<details><summary><h3>C. Middlewares</h3></summary>
 
 ## Node.js Middlewares CRUD Implementations
 
