@@ -42,13 +42,13 @@ Hello World
 
 ### Run the Application on the Local Machine
 ```bash
-$ 2_DNS_lookup_service_discovery> node src/main.js 
+$ 2_DNS_lookup_service_discovery_on_k8s> node src/main.js 
 ```
 
 ### Run the Application on Kind (Kubernetes in Docker)
 ```bash
-$ 2_DNS_lookup_service_discovery> kind create cluster --name=node-dns 
-$ 2_DNS_lookup_service_discovery> docker exec -it node-dns-control-plane /bin/bash 
+$ 2_DNS_lookup_service_discovery_on_k8s> kind create cluster --name=node-dns 
+$ 2_DNS_lookup_service_discovery_on_k8s> docker exec -it node-dns-control-plane /bin/bash 
 $ root@node-dns-control-plane:/# kubectl create -f k8s/ 
 ```
 > Ensure Kubernetes resource files are located in the `k8s` directory within the container, matching the repository's `k8s` directory.
@@ -63,8 +63,8 @@ node-app     10.244.0.17:8080,10.244.0.18:8080,10.244.0.19:8080   8m28s
 
 ### Test the Server Functionality
 ```bash
-$ 2_DNS_lookup_service_discovery> kubectl port-forward service/node-app 8080:8080
-$ 2_DNS_lookup_service_discovery> http :8080/ 
+$ 2_DNS_lookup_service_discovery_on_k8s> kubectl port-forward service/node-app 8080:8080
+$ 2_DNS_lookup_service_discovery_on_k8s> http :8080/ 
 HTTP/1.1 200 OK
 Connection: keep-alive
 Content-Type: application/json
