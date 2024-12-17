@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 3_middlewares/*
+      - 3_middlewares/**
   workflow_dispatch:
 
 env:
