@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 env:
-  APP_NAME: middleware_koa_js
+  APP_NAME: middleware_nest_js
   PROJECT_DIR: 3_middlewares/2_nest_js
 
 jobs:
