@@ -1,4 +1,4 @@
-name: Docker Build and Test
+name: 1_nodes_in_cluster
 
 env:
   APP_NAME: node-cluster-app

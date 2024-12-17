@@ -1,4 +1,4 @@
-name: Docker Build and Test
+name: 2_dns_lookup_nodes
 
 env:
   APP_NAME: dns-lookup-nodes

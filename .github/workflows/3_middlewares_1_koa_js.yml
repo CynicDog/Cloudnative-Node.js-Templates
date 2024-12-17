@@ -1,4 +1,4 @@
-name: Docker Build and Test
+name: 3_middlewares_1_koa_js
 
 env:
   APP_NAME: middleware_koa_js
