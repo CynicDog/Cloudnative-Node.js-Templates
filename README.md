@@ -2,7 +2,7 @@
 
 ### Index 
 1. [A. Nodes in Cluster](#a-nodes-in-cluster)
-2. [B. DNS Lookup Service Discovery](#b-dns-lookup-service-discovery)
+2. [B. DNS Lookup Service Discovery on Kubernetes](#b-dns-lookup-service-discovery-on-kubernetes)
 3. [C. Middlewares](#c-middlewares)
 
 <details><summary><h3>A. Nodes in Cluster</h3></summary>
@@ -36,7 +36,7 @@ Hello World
 </details>
 
 
-<details><summary><h3>B. DNS Lookup Service Discovery</h3></summary>
+<details><summary><h3>B. DNS Lookup Service Discovery on Kubernetes</h3></summary>
 
 ## DNS Lookup Service Discovery on Kubernetes
 
