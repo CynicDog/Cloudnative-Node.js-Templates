@@ -1,16 +1,16 @@
 name: 1_nodes_in_cluster
 
-env:
-  APP_NAME: node-cluster-app
-  PROJECT_DIR: 1_nodes_in_cluster
-
 on:
   push:
     branches:
       - master
     paths:
-      - ${{ env.PROJECT_DIR }}
+      - 1_nodes_in_cluster
   workflow_dispatch:
+
+env:
+  APP_NAME: node-cluster-app
+  PROJECT_DIR: 1_nodes_in_cluster
 
 jobs:
   build:

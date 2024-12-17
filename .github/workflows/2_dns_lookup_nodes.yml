@@ -1,16 +1,16 @@
 name: 2_dns_lookup_nodes
 
-env:
-  APP_NAME: dns-lookup-nodes
-  PROJECT_DIR: 2_DNS_lookup_service_discovery
-
 on:
   push:
     branches:
       - master
     paths:
-      - ${{ env.PROJECT_DIR }}
+      - 2_DNS_lookup_service_discovery
   workflow_dispatch:
+
+env:
+  APP_NAME: dns-lookup-nodes
+  PROJECT_DIR: 2_DNS_lookup_service_discovery
 
 jobs:
   build:
