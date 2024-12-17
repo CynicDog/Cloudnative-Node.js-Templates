@@ -13,7 +13,7 @@ $ root@node-dns-control-plane:/# kubectl create -f k8s/
 ```
 > Ensure Kubernetes resource files are located in the `k8s` directory within the container, matching the repository's `k8s` directory.
 
-If deployed successfully, it should look like this:
+If deployed successfully, the list of exposed endpoints by the headless service should look like this:
 ```bash
 root@node-dns-control-plane:/# kubectl get endpoints
 NAME         ENDPOINTS                                            AGE
