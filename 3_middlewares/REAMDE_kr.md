@@ -1,4 +1,4 @@
-# Node.js 미들웨어 CRUD 구현을 통한 Node.js Frameworks 맛보기  
+# Node.js 미들웨어 CRUD 구현을 통한 Node.js Frameworks 비교
 
 | **기준**               | [Express.js](https://github.com/expressjs/express)         | [Koa.js](https://github.com/koajs/koa)                     | [Nest.js](https://github.com/nestjs/nest) | [Fastify](https://github.com/fastify/fastify) |
 |------------------------|------------------------------------------------------------|------------------------------------------------------------|-------------------------------------------|-----------------------------------------------|
@@ -52,7 +52,7 @@ $ 3_express_js> docker run -p 3000:3000 ghcr.io/cynicdog/cloudnative-node.js-tem
 $ 4_fastify> docker run -p 3000:3000 ghcr.io/cynicdog/cloudnative-node.js-templates/middleware_fastify:latest
 ```
 
-### 서버 기능 테스트
+### API 테스트
 
 1. **Create an Item**
    ```bash
