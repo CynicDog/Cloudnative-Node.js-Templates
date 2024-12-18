@@ -94,9 +94,14 @@ For **Koa.js**:
 $ 1_koa_js> node src/main.js
 ```
 
-For **NestJS**:
+For **Nest.js**:
 ```bash
 $ 2_nest_js> npm run start
+```
+
+For **Express.js**:
+```bash
+$ 3_express_js> node src/main.js
 ```
 
 ### Run the Application on Container
