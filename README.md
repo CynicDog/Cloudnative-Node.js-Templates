@@ -87,6 +87,14 @@ Transfer-Encoding: chunked
 
 ## Node.js Middlewares CRUD Implementations
 
+| **Criteria**           | **Express.js**                       | **Koa.js**                                    | **Nest.js**                                  | **Fastify**                                    |
+|------------------------|--------------------------------------|-----------------------------------------------|----------------------------------------------|------------------------------------------------|
+| **Ease of Use**         | Very beginner-friendly, minimalistic | Requires more setup, uses modern JavaScript   | Steeper learning curve, structured & modular | Simple, developer-friendly with a learning curve |
+| **Architecture**        | Minimal structure, flexible          | Modular, unopinionated                        | Opinionated, modular, TypeScript-focused     | Structured, modular with plugin support        |
+| **Extensibility**       | Highly extensible with many plugins  | Flexible, but fewer built-in features         | Highly extensible with built-in tools        | Built-in plugins, highly extensible            |
+| **Community**           | Largest community, vast ecosystem    | Smaller community, fewer third-party packages | Growing, especially in TypeScript/enterprise | Rapidly growing, strong support for modern use |
+| **Popularity (GitHub Stars)** | 65.9k ⭐⭐⭐⭐                | 35.3k   ⭐⭐⭐                               | 68.4k ⭐⭐⭐⭐⭐                            | 32.6k  ⭐⭐⭐                                 |
+
 ### Run the Application on the Local Machine
 
 For **Koa.js**:
