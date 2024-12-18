@@ -1,0 +1,42 @@
+name: 3_middlewares_3_express_js
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 3_middlewares/3_express_js/**
+  workflow_dispatch:
+
+env:
+  APP_NAME: middleware_express_js
+  PROJECT_DIR: 3_middlewares/3_express_js
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.7
+
+      - id: lower-credentials
+        name: Lower Credentials
+        run: |
+          echo "actor=${GITHUB_ACTOR@L}" >> $GITHUB_OUTPUT
+          echo "repository=${GITHUB_REPOSITORY@L}" >> $GITHUB_OUTPUT
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3.3.0
+        with:
+          registry: ghcr.io
+          username: ${{ steps.lower-credentials.outputs.actor }}
+          password: ${{ secrets.GHCR_PAT }}
+
+      - name: Build Docker image
+        run: |
+          cd ${{ env.PROJECT_DIR }} && \
+          docker build -t ghcr.io/${{ steps.lower-credentials.outputs.repository }}/${{ env.APP_NAME }}:latest .  
+
+      - name: Push Docker image to GHCR
+        run: |
+          docker push ghcr.io/${{ steps.lower-credentials.outputs.repository }}/${{ env.APP_NAME }}:latest

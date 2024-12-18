@@ -1,6 +1,7 @@
-# Build stage
+# Build Stage
 FROM node:18-alpine AS build
 
+# Set working directory
 WORKDIR /app
 
 # Copy package files and install dependencies
@@ -10,16 +11,17 @@ RUN npm install --production
 # Copy the application files
 COPY . .
 
-# Production stage
+# Production Stage
 FROM node:18-alpine
 
+# Set working directory
 WORKDIR /app
 
 # Copy only the necessary files from the build stage
 COPY --from=build /app .
 
-# Expose the port
+# Expose the port the app runs on
 EXPOSE 3000
 
-# Start the application
+# Command to start the application
 CMD ["node", "src/main.js"]
