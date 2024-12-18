@@ -1,5 +1,5 @@
 # Phase 1: Build
-FROM node:18-alpine AS build
+FROM node:20 AS builder
 
 # Set working directory inside the container
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Phase 2: Runtime
-FROM node:18-alpine AS runtime
+FROM node:20-alpine AS runtime
 
 # Set working directory inside the container
 WORKDIR /app
