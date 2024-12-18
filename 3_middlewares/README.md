@@ -17,6 +17,11 @@ For **Express.js**:
 $ 3_express_js> node src/main.js
 ```
 
+For **Fastify**:
+```bash
+$ 4_fastify> npm run dev 
+```
+
 ### Run the Application on Container
 
 For **Koa.js**:
@@ -32,6 +37,11 @@ $ 2_nest_js> docker run -p 3000:3000 ghcr.io/cynicdog/cloudnative-node.js-templa
 For **Express.js**:
 ```bash
 $ 3_express_js> docker run -p 3000:3000 ghcr.io/cynicdog/cloudnative-node.js-templates/middleware_express_js:latest
+```
+
+For **Fastify**:
+```bash
+$ 4_fastify> docker run -p 3000:3000 ghcr.io/cynicdog/cloudnative-node.js-templates/middleware_fastify:latest
 ```
 
 ### Test the Server Functionality
