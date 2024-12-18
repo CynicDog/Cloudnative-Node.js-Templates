@@ -87,7 +87,7 @@ Transfer-Encoding: chunked
 
 ## Node.js Middlewares CRUD Implementations
 
-| **Criteria**           | **Express.js**                       | **Koa.js**                                    | **Nest.js**                                  | **Fastify**                                    |
+| **Criteria**           | [Express.js](https://github.com/expressjs/express) | [Koa.js](https://github.com/koajs/koa)  | [Nest.js](https://github.com/nestjs/nest)  | [Fastify](https://github.com/fastify/fastify)  |
 |------------------------|--------------------------------------|-----------------------------------------------|----------------------------------------------|------------------------------------------------|
 | **Ease of Use**         | Very beginner-friendly, minimalistic | Requires more setup, uses modern JavaScript   | Steeper learning curve, structured & modular | Simple, developer-friendly with a learning curve |
 | **Architecture**        | Minimal structure, flexible          | Modular, unopinionated                        | Opinionated, modular, TypeScript-focused     | Structured, modular with plugin support        |
