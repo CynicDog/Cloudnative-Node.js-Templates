@@ -5,7 +5,8 @@ const fastify = require('fastify')()
 fastify
     .register(require('./'))
     .after(() => {
-        fastify.next('/hello')
+        fastify.next('/hello');
+        fastify.next('/api/user')
     })
 
 fastify.listen({ port: 3000 }, err => {
