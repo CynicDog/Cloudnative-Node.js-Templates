@@ -1,17 +1,27 @@
 {
   "name": "4_2_fastify",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "This project was bootstrapped with Fastify-CLI.",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test test/**/*.test.js",
+    "start": "fastify start -l info app.js",
+    "dev": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fastify/autoload": "^6.0.0",
     "@fastify/nextjs": "^11.0.0",
-    "next": "^13.5.7",
+    "@fastify/sensible": "^6.0.0",
+    "fastify": "^5.0.0",
+    "fastify-cli": "^7.2.0",
+    "fastify-plugin": "^5.0.0",
+    "next": "^13.5.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   }
