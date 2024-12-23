@@ -29,7 +29,11 @@ class ClusterManager {
         try {
             const nodes = await resolveClusterNodes();
             nodes.forEach(node => {
+
+                console.log(node)
+
                 this.members.push(node.target);
+
                 console.log(`Discovered node: ${node.target}`);
             });
         } catch (err) {
