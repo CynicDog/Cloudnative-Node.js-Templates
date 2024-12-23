@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ghcr.io/cynicdog/cloudnative-node.js-templates/dns-lookup-nodes:latest
+          image: ghcr.io/cynicdog/cloudnative-node.js-templates/plugins_clustered:latest
           imagePullPolicy: Always
           env:
             - name: HTTP_PORT
@@ -30,6 +30,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
+            - name: SERVICE_NAME
+              value: "node-app.default.svc.cluster.local"
           ports:
             - containerPort: 8080
           livenessProbe:

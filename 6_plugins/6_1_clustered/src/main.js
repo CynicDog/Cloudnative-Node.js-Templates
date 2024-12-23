@@ -3,15 +3,16 @@ const dns = require('dns');
 
 const podIP = process.env.CURRENT_POD_IP;
 const port = process.env.HTTP_PORT || 8080;
+const serviceName = process.env.SERVICE_NAME || 'node-app.default.svc.cluster.local'
 
 // Function to resolve pod IP addresses using DNS
 function resolveClusterNodes() {
     return new Promise((resolve, reject) => {
-        dns.resolveSrv('node-app.default.svc.cluster.local', (err, addresses) => {
+        dns.lookup(serviceName, { all: true }, (err, addresses) => {
             if (err) {
                 reject(err);
             } else {
-                resolve(addresses);
+                resolve(addresses.map(entry => entry.address)); // Extract only the IP addresses
             }
         });
     });
