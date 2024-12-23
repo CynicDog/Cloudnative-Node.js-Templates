@@ -30,6 +30,7 @@ class ClusterManager {
             const nodes = await resolveClusterNodes();
             nodes.forEach(node => {
 
+                // debug
                 console.log(node)
 
                 this.members.push(node.target);
@@ -68,3 +69,6 @@ class ClusterManager {
 // Instantiate and start the cluster manager
 const clusterManager = new ClusterManager();
 clusterManager.startCluster();
+
+// debug
+console.log(clusterManager.members)
