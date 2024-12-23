@@ -25,17 +25,14 @@ class ClusterManager {
         this.currentPodIp = podIP;
     }
 
+    // TODO: health & readiness check
     async discoverClusterMembers() {
         try {
             const nodes = await resolveClusterNodes();
             nodes.forEach(node => {
 
-                // debug
-                console.log(node)
-
-                this.members.push(node.target);
-
-                console.log(`Discovered node: ${node.target}`);
+                this.members.push(node);
+                console.log(`Discovered node IP: ${node}`);
             });
         } catch (err) {
             console.error('Failed to resolve cluster members:', err);
@@ -69,6 +66,3 @@ class ClusterManager {
 // Instantiate and start the cluster manager
 const clusterManager = new ClusterManager();
 clusterManager.startCluster();
-
-// debug
-console.log(clusterManager.members)
