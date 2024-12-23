@@ -41,16 +41,18 @@ class ClusterManager {
     }
 
     async startCluster() {
-        // Start listening for requests first
+        // Start listening for requests
         this.listenForRequests();
 
-        // Discover other nodes in the cluster
-        await this.discoverClusterMembers();
-
-        // Add the current node to the list
+        // Add the current node to the members list
         this.members.push(this.currentPodIp);
 
-        console.log(`Cluster initialized with ${this.members.length} members`);
+        console.log(`Cluster initialized with node ${this.currentPodIp}`);
+
+        // Periodically discover cluster members
+        setInterval(() => {
+            this.discoverClusterMembers();
+        }, 3000);
 
         // Mark the pod as ready
         this.isReady = true;
