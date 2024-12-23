@@ -3,7 +3,7 @@ const dns = require('dns');
 
 const podIP = process.env.CURRENT_POD_IP;
 const port = process.env.HTTP_PORT || 8080;
-const serviceName = process.env.SERVICE_NAME || 'node-app.default.svc.cluster.local'
+const serviceName = process.env.SERVICE_NAME || 'node-app.default.svc.cluster.local';
 
 // Function to resolve pod IP addresses using DNS
 function resolveClusterNodes() {
@@ -12,7 +12,7 @@ function resolveClusterNodes() {
             if (err) {
                 reject(err);
             } else {
-                resolve(addresses.map(entry => entry.address)); // Extract only the IP addresses
+                resolve(addresses.map(entry => entry.address));
             }
         });
     });
@@ -23,16 +23,17 @@ class ClusterManager {
     constructor() {
         this.members = [];
         this.currentPodIp = podIP;
+        this.isReady = false; // Track readiness state
     }
 
-    // TODO: health & readiness check
     async discoverClusterMembers() {
         try {
             const nodes = await resolveClusterNodes();
             nodes.forEach(node => {
-
-                this.members.push(node);
-                console.log(`Discovered node IP: ${node}`);
+                if (!this.members.includes(node)) {
+                    this.members.push(node);
+                    console.log(`Discovered node IP: ${node}`);
+                }
             });
         } catch (err) {
             console.error('Failed to resolve cluster members:', err);
@@ -40,21 +41,58 @@ class ClusterManager {
     }
 
     async startCluster() {
+        // Start listening for requests first
+        this.listenForRequests();
+
         // Discover other nodes in the cluster
         await this.discoverClusterMembers();
-        console.log(`Cluster initialized with ${this.members.length} members`);
 
         // Add the current node to the list
         this.members.push(this.currentPodIp);
 
-        // Listen for incoming requests
-        this.listenForRequests();
+        console.log(`Cluster initialized with ${this.members.length} members`);
+
+        // Mark the pod as ready
+        this.isReady = true;
     }
 
     listenForRequests() {
         const server = http.createServer((req, res) => {
-            res.writeHead(200, { 'Content-Type': 'text/plain' });
-            res.end(`Hello from node at ${this.currentPodIp}\nCluster Members: ${this.members.join(', ')}`);
+            if (req.url === '/health') {
+                // Health check endpoint
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(
+                    JSON.stringify({
+                        status: 'ok',
+                        message: 'The application is healthy.',
+                    })
+                );
+            } else if (req.url === '/readiness') {
+                // Readiness check endpoint
+                dns.lookup(serviceName, (err) => {
+                    if (err || !this.isReady) {
+                        res.writeHead(500, { 'Content-Type': 'application/json' });
+                        res.end(
+                            JSON.stringify({
+                                status: 'unavailable',
+                                message: 'Pod is not ready due to DNS lookup failure or cluster initialization not complete.',
+                            })
+                        );
+                    } else {
+                        res.writeHead(200, { 'Content-Type': 'application/json' });
+                        res.end(
+                            JSON.stringify({
+                                status: 'ready',
+                                message: 'Pod is ready to serve traffic.',
+                            })
+                        );
+                    }
+                });
+            } else {
+                // Default request handler
+                res.writeHead(200, { 'Content-Type': 'text/plain' });
+                res.end(`Hello from node at ${this.currentPodIp}\nCluster Members: ${this.members.join(', ')}`);
+            }
         });
 
         server.listen(port, () => {
