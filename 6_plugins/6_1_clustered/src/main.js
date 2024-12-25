@@ -23,8 +23,10 @@ class ClusterManager {
         try {
             const nodes = await resolveClusterNodes();
             for (const node of nodes) {
-                await redis.sadd(this.clusterKey, node);
-                console.log(`Discovered node IP: ${node}`);
+                const isNewNode = await redis.sadd(this.clusterKey, node);
+                if (isNewNode) {
+                    console.log(`Discovered new node IP: ${node}`);
+                }
             }
         } catch (err) {
             console.error('Failed to resolve cluster members:', err);
