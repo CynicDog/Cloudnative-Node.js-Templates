@@ -5,8 +5,12 @@ const Redis = require('ioredis');
 const podIP = process.env.CURRENT_POD_IP;
 const port = process.env.HTTP_PORT || 8080;
 const serviceName = process.env.SERVICE_NAME || 'node-app.default.svc.cluster.local';
+const redisHost = process.env.REDIS_HOST || "localhost";
 
-const redis = new Redis(); // Connect to Redis
+const redis = new Redis({
+    host: redisHost
+    }
+); // Connect to Redis
 
 class ClusterManager {
     constructor() {
