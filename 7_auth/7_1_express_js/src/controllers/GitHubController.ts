@@ -76,7 +76,7 @@ export class GithubController {
             await redis.set(`user:${userInfo.login}:access_token`, access_token);
 
             res.cookie('is_authenticated', 'true', { secure: true, maxAge: 3600_000 }); // 1 hour
-            res.redirect(`http://${FRONTEND_HOST}:${FRONTEND_PORT}/auth/callback`);
+            res.redirect(`http://${FRONTEND_HOST}:${FRONTEND_PORT}/`);
         } catch (err: unknown) {
             if (err instanceof Error) {
                 res.status(500).send({ error: "GitHub OAuth2 callback failed", details: err.message });

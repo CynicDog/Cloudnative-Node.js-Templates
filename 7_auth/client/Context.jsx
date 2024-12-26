@@ -16,11 +16,6 @@ export const AuthProvider = ({ children }) => {
 
         if (isAuthenticatedCookie === 'true'  && !isAuthenticated) {
             setIsAuthenticated(true);
-
-            // Redirect after successful authentication
-            if (history.location.pathname === '/auth/callback') {
-                history.push('/'); // Or whatever protected page you want to navigate to
-            }
         }
     }, []);
 
