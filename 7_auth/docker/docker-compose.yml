@@ -18,6 +18,7 @@ services:
     container_name: vite-react-client
     environment:
       PORT: 4173
+      VITE_SERVER_URI: http://express-backend:3000
     ports:
       - "4173:4173"
     depends_on:
