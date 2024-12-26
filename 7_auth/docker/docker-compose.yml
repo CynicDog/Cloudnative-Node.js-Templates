@@ -26,7 +26,6 @@ services:
       - app-network
     command: ["npm", "run", "preview"]
 
-  # Redis service for the backend
   redis:
     image: redis:alpine
     container_name: redis
