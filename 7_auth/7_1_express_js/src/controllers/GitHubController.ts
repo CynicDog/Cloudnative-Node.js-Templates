@@ -36,7 +36,7 @@ export class GithubController {
         // Validate the state parameter to prevent CSRF attacks
         const storedState = req.cookies['state'];
         if (!storedState || storedState !== state) {
-            return res.status(400).send({ error: "State mismatch" });
+            res.status(400).send({ error: "State mismatch" });
         }
 
         try {
