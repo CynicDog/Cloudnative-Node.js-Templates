@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import axios from "axios";
 import { useMiddleware } from "../decorators/LogDecorator";
 
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const CLIENT_ID = process.env.CLIENT_ID!;
+const CLIENT_SECRET = process.env.CLIENT_SECRET!;
 
 const REDIRECT_URI = "http://localhost:3000/api/auth/callback";
 const GITHUB_API_URL = "https://api.github.com";
@@ -71,8 +71,12 @@ export class GithubController {
                     profile_url: userInfo.html_url,
                 },
             });
-        } catch (err) {
-            res.status(500).send({ error: "GitHub OAuth2 callback failed", details: err.message });
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                res.status(500).send({ error: "GitHub OAuth2 callback failed", details: err.message });
+            } else {
+                res.status(500).send({ error: "GitHub OAuth2 callback failed", details: "Unknown error" });
+            }
         }
     }
 }
