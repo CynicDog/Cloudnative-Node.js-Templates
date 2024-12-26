@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Redis, { RedisKey } from "ioredis";
-import { useMiddleware } from "../decorators/decorators";
+import { useMiddleware } from "../decorators/LogDecorator";
 
 // docker run -d -p 6379:6379 --name redis redis
 // Create a new Redis client

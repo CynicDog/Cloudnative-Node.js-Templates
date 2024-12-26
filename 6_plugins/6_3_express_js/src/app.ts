@@ -1,5 +1,5 @@
 import express from "express";
-import { RedisController } from "./controllers/controllers"; // Import the RedisController class
+import { RedisController } from "./controllers/RedisController"; // Import the RedisController class
 
 const app = express();
 const PORT = 3000;
