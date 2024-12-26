@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import axios from "axios";
 import { useMiddleware } from "../decorators/LogDecorator";
 
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const CLIENT_ID = process.env.CLIENT_ID as string;
+const CLIENT_SECRET = process.env.CLIENT_SECRET as string;
 
 // debug
 console.log(CLIENT_ID);
