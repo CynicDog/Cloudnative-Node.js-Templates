@@ -6,8 +6,6 @@ services:
     container_name: express-backend
     environment:
       REDIS_HOST: redis
-      FRONTEND_HOST: vite-react-client
-      FRONTEND_PORT: 4173
     ports:
       - "3000:3000"
     depends_on:

@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
 
         if (isAuthenticatedCookie === 'true') {
             setIsAuthenticated(true);
+            window.location.reload();
         }
     }, []);
 
