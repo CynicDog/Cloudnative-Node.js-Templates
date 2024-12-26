@@ -2,10 +2,12 @@ import { Request, Response } from "express";
 import Redis, { RedisKey } from "ioredis";
 import { useMiddleware } from "../decorators/LogDecorator";
 
+const REDIS_HOST = process.env.REDIS_HOST!;
+
 // docker run -d -p 6379:6379 --name redis redis
 // Create a new Redis client
 const redis = new Redis({
-    host: 'localhost',
+    host: REDIS_HOST || 'localhost',
     port: 6379,
 });
 
