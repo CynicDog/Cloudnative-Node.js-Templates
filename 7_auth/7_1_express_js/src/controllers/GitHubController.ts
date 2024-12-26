@@ -84,7 +84,7 @@ export class GithubController {
 
             // Run the below command as Administrator on Window:
             //      Add-Content C:\Windows\System32\drivers\etc\hosts "127.0.0.1 vite-react-client"
-            res.redirect(`http://${FRONTEND_HOST}:${FRONTEND_PORT}/`);
+            res.redirect(`http://${FRONTEND_HOST}:${FRONTEND_PORT}`);
         } catch (err: unknown) {
             if (err instanceof Error) {
                 res.status(500).send({ error: "GitHub OAuth2 callback failed", details: err.message });
