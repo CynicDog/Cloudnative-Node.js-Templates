@@ -12,6 +12,8 @@ const OAUTH_URL = "https://github.com/login/oauth/authorize";
 const OAUTH_ACCESS_TOKEN_URL = "https://github.com/login/oauth/access_token";
 
 const REDIS_HOST = process.env.REDIS_HOST!;
+const FRONTEND_HOST = process.env.FRONTEND_HOST!;
+const FRONTEND_PORT = process.env.FRONTEND_PORT!;
 
 // docker run -d -p 6379:6379 --name redis redis
 // Create a new Redis client
@@ -69,12 +71,12 @@ export class GithubController {
             const userResponse = await axios.get(`${GITHUB_API_URL}/user`, {
                 headers: { Authorization: `Bearer ${access_token}` },
             });
-            const userInfo = userResponse.data;
 
-            // Store the access token in Redis (or a session store)
-            await redis.set(`user:${userInfo.login}:access_token`, access_token, 'EX', 3600);
+            const userInfo = userResponse.data;
+            await redis.set(`user:${userInfo.login}:access_token`, access_token);
 
             res.cookie('is_authenticated', 'true', { secure: true, maxAge: 3600_000 }); // 1 hour
+            res.redirect(`${FRONTEND_HOST}:${FRONTEND_PORT}/auth/callback`);
         } catch (err: unknown) {
             if (err instanceof Error) {
                 res.status(500).send({ error: "GitHub OAuth2 callback failed", details: err.message });
