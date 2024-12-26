@@ -5,10 +5,6 @@ import { useMiddleware } from "../decorators/LogDecorator";
 const CLIENT_ID = process.env.CLIENT_ID as string;
 const CLIENT_SECRET = process.env.CLIENT_SECRET as string;
 
-// debug
-console.log(CLIENT_ID);
-console.log(CLIENT_SECRET);
-
 const REDIRECT_URI = "http://localhost:3000/callback";
 const GITHUB_API_URL = "https://api.github.com";
 const OAUTH_URL = "https://github.com/login/oauth/authorize";
