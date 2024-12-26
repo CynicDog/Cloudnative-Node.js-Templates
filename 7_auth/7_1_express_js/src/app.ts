@@ -1,10 +1,19 @@
 import express from "express";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import { RedisController } from "./controllers/RedisController";
 import { GithubController } from "./controllers/GitHubController"; // Import the RedisController class
 
 const app = express();
 const PORT = 3000;
+
+const FRONTEND_HOST = process.env.FRONTEND_HOST!;
+const FRONTEND_PORT = process.env.FRONTEND_PORT!;
+
+const corsOptions = {
+    origin: `http://${FRONTEND_HOST}:${FRONTEND_PORT}`,
+    credentials: true,
+};
 
 // Create an instance of the RedisController
 const redisController = new RedisController();
@@ -12,6 +21,7 @@ const githubController = new GithubController();
 
 app.use(cookieParser());
 app.use(express.json());
+app.use(cors(corsOptions));
 
 // http :3000/redis/foo?key=myKey
 app.get("/redis/foo", (req, res) =>
