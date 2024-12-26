@@ -77,6 +77,7 @@ export class GithubController {
 
             res.cookie('is_authenticated', 'true', {
                 secure: true,
+                sameSite: "none",
                 maxAge: 3_600_000  // 1 hour
             });
 
