@@ -21,6 +21,9 @@ export const AuthProvider = ({ children }) => {
 
             // Decode token to extract user info if needed
             const user = JSON.parse(atob(token.split('.')[1])); // Decodes JWT payload
+
+            console.log(user);
+
             setUserInfo(user);
         }
     }, []);
