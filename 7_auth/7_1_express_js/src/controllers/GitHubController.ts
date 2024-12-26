@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import axios from "axios";
 import { useMiddleware } from "../decorators/LogDecorator";
+import Redis from "ioredis";
 
 const CLIENT_ID = process.env.CLIENT_ID as string;
 const CLIENT_SECRET = process.env.CLIENT_SECRET as string;
@@ -9,6 +10,15 @@ const REDIRECT_URI = "http://localhost:3000/callback";
 const GITHUB_API_URL = "https://api.github.com";
 const OAUTH_URL = "https://github.com/login/oauth/authorize";
 const OAUTH_ACCESS_TOKEN_URL = "https://github.com/login/oauth/access_token";
+
+const REDIS_HOST = process.env.REDIS_HOST!;
+
+// docker run -d -p 6379:6379 --name redis redis
+// Create a new Redis client
+const redis = new Redis({
+    host: REDIS_HOST || 'localhost',
+    port: 6379,
+});
 
 // GitHubController to handle OAuth2 flow
 export class GithubController {
@@ -59,19 +69,13 @@ export class GithubController {
             const userResponse = await axios.get(`${GITHUB_API_URL}/user`, {
                 headers: { Authorization: `Bearer ${access_token}` },
             });
-
             const userInfo = userResponse.data;
 
-            console.log(userInfo);
+            // Store the access token in Redis (or a session store)
+            await redis.set(`user:${userInfo.login}:access_token`, access_token, 'EX', 3600);
 
-            // Send back user info or redirect to your app
-            res.send({
-                user: {
-                    username: userInfo.login,
-                    avatar_url: userInfo.avatar_url,
-                    profile_url: userInfo.html_url,
-                },
-            });
+            res.cookie('is_authenticated', 'success', { secure: true, maxAge: 3600_000 }); // 1 hour
+            res.redirect('/');
         } catch (err: unknown) {
             if (err instanceof Error) {
                 res.status(500).send({ error: "GitHub OAuth2 callback failed", details: err.message });

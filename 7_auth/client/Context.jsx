@@ -8,11 +8,15 @@ export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
-        const token = document.cookie
+        // Read the 'is_authenticated' cookie
+        const isAuthenticatedCookie = document.cookie
             .split('; ')
-            .find(cookie => cookie.startsWith('access_token='))?.split('=')[1];
+            .find(cookie => cookie.startsWith('is_authenticated='))
+            ?.split('=')[1];
 
-        if (token) setIsAuthenticated(true);
+        if (isAuthenticatedCookie === 'true') {
+            setIsAuthenticated(true);
+        }
     }, []);
 
 
