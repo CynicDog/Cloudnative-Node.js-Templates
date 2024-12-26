@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  backend:
+    image: ghcr.io/cynicdog/cloudnative-node.js-templates/auth_express_js:latest
+    container_name: express-backend
+    environment:
+      REDIS_HOST: redis
+    ports:
+      - "3000:3000"
+    depends_on:
+      - redis
+    networks:
+      - app-network
+
+  frontend:
+    image: ghcr.io/cynicdog/cloudnative-node.js-templates/auth_client:latest
+    container_name: vite-react-client
+    environment:
+      PORT: 4173
+    ports:
+      - "4173:4173"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+    command: ["npm", "run", "preview"]
+
+  # Redis service for the backend
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

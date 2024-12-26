@@ -1,29 +1,26 @@
-# Stage 1: Build the app
-FROM node:18 as build
+# Use the official Node.js image as a parent image
+FROM node:18-alpine
 
-# Set working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+# Copy the package.json and package-lock.json (if available)
+COPY package.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the app's source code
+# Copy the rest of the application code
 COPY . .
 
-# Build the app for production
+# Build the application
 RUN npm run build
 
-# Stage 2: Serve the app
-FROM nginx:alpine
+# Set environment variables
+ENV PORT=4173
 
-# Copy built files from the previous stage
-COPY --from=build /app/dist /usr/share/nginx/html
+# Expose port 5173
+EXPOSE 4173
 
-# Expose port 80
-EXPOSE 80
-
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Command to run the application
+CMD ["npm", "run", "preview", "--host"]
