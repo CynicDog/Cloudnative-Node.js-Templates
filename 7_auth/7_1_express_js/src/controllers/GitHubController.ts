@@ -77,9 +77,9 @@ export class GithubController {
 
             res.cookie('is_authenticated', 'true', {
                 httpOnly: true,
-                // secure: false,
-                // sameSite: "none",
-                // maxAge: 3_600_000  // 1 hour
+                secure: false,
+                sameSite: "none",
+                maxAge: 3_600_000  // 1 hour
             });
 
             // Run the below command as Administrator on Window:
