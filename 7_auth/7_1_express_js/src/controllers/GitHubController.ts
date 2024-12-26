@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import axios from "axios";
+import jwt from 'jsonwebtoken';
+
 import { useMiddleware } from "../decorators/LogDecorator";
 import Redis from "ioredis";
 
@@ -14,6 +16,7 @@ const OAUTH_ACCESS_TOKEN_URL = "https://github.com/login/oauth/access_token";
 const REDIS_HOST = process.env.REDIS_HOST!;
 const FRONTEND_HOST = process.env.FRONTEND_HOST!;
 const FRONTEND_PORT = process.env.FRONTEND_PORT!;
+const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
 // docker run -d -p 6379:6379 --name redis redis
 // Create a new Redis client
@@ -67,24 +70,22 @@ export class GithubController {
 
             const { access_token } = tokenResponse.data;
 
+
             // Get user info from GitHub using the access token
             const userResponse = await axios.get(`${GITHUB_API_URL}/user`, {
                 headers: { Authorization: `Bearer ${access_token}` },
             });
 
             const userInfo = userResponse.data;
+
             await redis.set(`user:${userInfo.login}:access_token`, access_token);
 
-            res.cookie('is_authenticated', 'true', {
-                httpOnly: true,
-                secure: true,
-                sameSite: "none",
-                maxAge: 3_600_000  // 1 hour
-            });
+            const userPayload = { username: userInfo.login };
+            const token = jwt.sign(userPayload, JWT_SECRET, { expiresIn: '6h' });
 
             // Run the below command as Administrator on Window:
             //      Add-Content C:\Windows\System32\drivers\etc\hosts "127.0.0.1 vite-react-client"
-            res.redirect(`http://${FRONTEND_HOST}:${FRONTEND_PORT}`);
+            res.redirect(`http://${FRONTEND_HOST}:${FRONTEND_PORT}?user_token=${token}`);
         } catch (err: unknown) {
             if (err instanceof Error) {
                 res.status(500).send({ error: "GitHub OAuth2 callback failed", details: err.message });

@@ -6,22 +6,28 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [userInfo, setUserInfo] = useState(null);
 
     useEffect(() => {
-        // Read the 'is_authenticated' cookie
-        const isAuthenticatedCookie = document.cookie
-            .split('; ')
-            .find(cookie => cookie.startsWith('is_authenticated='))
-            ?.split('=')[1];
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get("user_token");
+        if (token) {
+            // Save token in local storage or cookie
+            localStorage.setItem("user_token", token);
 
-        if (isAuthenticatedCookie === 'true'  && !isAuthenticated) {
+            // Clear token from URL to keep it clean
+            window.history.replaceState({}, document.title, "/");
             setIsAuthenticated(true);
+
+            // Decode token to extract user info if needed
+            const user = JSON.parse(atob(token.split('.')[1])); // Decodes JWT payload
+            setUserInfo(user);
         }
     }, []);
 
-
     const value = {
-        isAuthenticated
+        isAuthenticated,
+        userInfo
     };
 
     return (
