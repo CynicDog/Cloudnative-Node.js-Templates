@@ -33,9 +33,6 @@ export class GithubController {
     async callback(req: Request, res: Response) {
         const { code, state } = req.query;
 
-        // debug
-        console.log(req.cookies.query('state'));
-
         // Validate the state parameter to prevent CSRF attacks
         const storedState = req.cookies['state'];
 

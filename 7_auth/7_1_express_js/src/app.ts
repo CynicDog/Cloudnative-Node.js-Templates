@@ -1,6 +1,7 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import { RedisController } from "./controllers/RedisController";
-import {GithubController} from "./controllers/GitHubController"; // Import the RedisController class
+import { GithubController } from "./controllers/GitHubController"; // Import the RedisController class
 
 const app = express();
 const PORT = 3000;
@@ -9,6 +10,7 @@ const PORT = 3000;
 const redisController = new RedisController();
 const githubController = new GithubController();
 
+app.use(cookieParser());
 app.use(express.json());
 
 // http :3000/redis/foo?key=myKey
