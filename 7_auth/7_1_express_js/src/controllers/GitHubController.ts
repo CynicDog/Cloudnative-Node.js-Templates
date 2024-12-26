@@ -76,7 +76,8 @@ export class GithubController {
             await redis.set(`user:${userInfo.login}:access_token`, access_token);
 
             res.cookie('is_authenticated', 'true', {
-                // secure: true,
+                httpOnly: true,
+                secure: false,
                 sameSite: "none",
                 maxAge: 3_600_000  // 1 hour
             });
