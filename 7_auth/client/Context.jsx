@@ -14,11 +14,11 @@ export const AuthProvider = ({ children }) => {
             .find(cookie => cookie.startsWith('is_authenticated='))
             ?.split('=')[1];
 
-        if (isAuthenticatedCookie === 'true') {
+        if (isAuthenticatedCookie === 'true'  && !isAuthenticated) {
             setIsAuthenticated(true);
             window.location.reload();
         }
-    }, []);
+    }, [isAuthenticated]);
 
 
     const value = {
