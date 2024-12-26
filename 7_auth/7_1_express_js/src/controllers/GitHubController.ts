@@ -2,8 +2,12 @@ import { Request, Response } from "express";
 import axios from "axios";
 import { useMiddleware } from "../decorators/LogDecorator";
 
-const CLIENT_ID = process.env.CLIENT_ID!;
-const CLIENT_SECRET = process.env.CLIENT_SECRET!;
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+
+// debug
+console.log(CLIENT_ID);
+console.log(CLIENT_SECRET);
 
 const REDIRECT_URI = "http://localhost:3000/callback";
 const GITHUB_API_URL = "https://api.github.com";
