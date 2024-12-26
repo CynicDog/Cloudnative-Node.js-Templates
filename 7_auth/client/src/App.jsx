@@ -3,13 +3,13 @@ import {useAuth} from "../Context.jsx";
 
 function App() {
 
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, userInfo } = useAuth();
 
     return (
         <>
             { isAuthenticated ? (
                 <>
-                    <span>Authenticated!</span>
+                    <span>Authenticated! Hello, {userInfo} 👋</span>
                 </>
             ):(
                 <>
