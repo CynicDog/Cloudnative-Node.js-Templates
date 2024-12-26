@@ -1,0 +1,28 @@
+{
+  "name": "7_1_express_js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/app.js",
+    "build": "../node_modules/.bin/tsc",
+    "dev": "../node_modules/.bin/nodemon src/app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "axios": "^1.7.9",
+    "express": "^4.21.2",
+    "ioredis": "^5.4.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
+  "devDependencies": {
+    "@types/ioredis": "^5.0.0",
+    "nodemon": "^3.1.9"
+  }
+}
