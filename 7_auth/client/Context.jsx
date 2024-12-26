@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
             setIsAuthenticated(true);
             window.location.reload();
         }
-    }, [isAuthenticated]);
+    }, []);
 
 
     const value = {
