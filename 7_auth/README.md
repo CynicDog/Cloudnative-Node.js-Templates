@@ -1,1 +1,3 @@
-![gh_oauth2_flow](https://github.com/user-attachments/assets/de79fd04-9709-4cbc-b5a3-eeefc7c2d92a)
+## GitHub OAuth2 Flow 
+
+![gh_oauth2](https://github.com/user-attachments/assets/56768767-b3fa-4f91-9289-4665134df4dd)
