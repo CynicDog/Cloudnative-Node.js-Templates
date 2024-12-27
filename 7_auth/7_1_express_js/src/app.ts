@@ -1,13 +1,13 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import { AuthController } from "./controllers/AuthController";
-import {ProtectedController} from "./controllers/ProtectedController"; // Import the RedisController class
+import {GitHubController} from "./controllers/GitHubController"; // Import the RedisController class
 
 const app = express();
 const PORT = 3000;
 
 const authController = new AuthController();
-const protectedController = new ProtectedController();
+const protectedController = new GitHubController();
 
 app.use(cookieParser());
 app.use(express.json());
@@ -20,8 +20,8 @@ app.get("/callback", (req, res) =>
     authController.callback(req, res)
 )
 
-app.get("/protected-remote-call", (req, res) =>
-    protectedController.getSomeResource(req, res)
+app.get("/github/repositories", (req, res) =>
+    protectedController.getRepositories(req, res)
 )
 
 // Start the Express server
