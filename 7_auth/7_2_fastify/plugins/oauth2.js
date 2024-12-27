@@ -1,7 +1,6 @@
 const fp = require('fastify-plugin');
 const oauthPlugin = require('@fastify/oauth2');
 const axios = require('axios');
-const jwt = require('jsonwebtoken');
 
 async function GitHubOauth2Plugin(fastify) {
 
@@ -22,9 +21,7 @@ async function GitHubOauth2Plugin(fastify) {
         callbackUri: fastify.config.callbackUri,
     });
 
-    // This is the /sign-in route that triggers OAuth2 flow
     fastify.get('/sign-in', {}, async (req, reply) => {
-        // Generate the authorization URI
         fastify.GitHubOAuth2.generateAuthorizationUri(
             req,
             reply,
@@ -49,6 +46,8 @@ async function GitHubOauth2Plugin(fastify) {
     });
 
     fastify.get('/callback', async (request, reply) => {
+
+        const { redis, jwt } = fastify
         const { code, state } = request.query;
 
         // Validate the state parameter to prevent CSRF attacks
@@ -73,22 +72,20 @@ async function GitHubOauth2Plugin(fastify) {
 
             const { access_token } = tokenResponse.data;
 
-            // Get user info from GitHub using the access token
             const userResponse = await axios.get('https://api.github.com/user', {
                 headers: { Authorization: `Bearer ${access_token}` },
             });
-
             const userInfo = userResponse.data;
 
             // // Persist the access token in Redis
-            // await redis.set(`user:${userInfo.login}:github_access_token`, access_token);
+            await redis.set(`user:${userInfo.login}:github_access_token`, access_token);
 
             // Create a JWT for the app user (the "principal" identifier)
             const userPayload = { username: userInfo.login };
             const appToken = jwt.sign(userPayload, fastify.config.jwtSecret, { expiresIn: '3h' });
 
             // // Persist the user token issued by the backend server
-            // await redis.set(`user:${userInfo.login}:app_user_token`, appToken);
+            await redis.set(`user:${userInfo.login}:app_user_token`, appToken);
 
             // Redirect the user to the frontend with the app token
             reply.redirect(`http://${fastify.config.frontendHost}:${fastify.config.frontendPort}?user_token=${appToken}`);
