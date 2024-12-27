@@ -5,8 +5,8 @@ import jwt from 'jsonwebtoken';
 import { useMiddleware } from "../decorators/LogDecorator";
 import Redis from "ioredis";
 
-const CLIENT_ID = process.env.CLIENT_ID as string || 'Ov23liHN4rwB7MgrEGaX';
-const CLIENT_SECRET = process.env.CLIENT_SECRET as string || 'd29f42c8aa0ff4013d3a32a10e82dda628f677cb';
+const CLIENT_ID = process.env.CLIENT_ID as string;
+const CLIENT_SECRET = process.env.CLIENT_SECRET as string;
 
 const GITHUB_API_URL = "https://api.github.com";
 const OAUTH_URL = "https://github.com/login/oauth/authorize";
