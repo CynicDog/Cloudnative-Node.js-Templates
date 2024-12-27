@@ -4,6 +4,7 @@
 1. [A. Nodes in Cluster](#a-nodes-in-cluster)
 2. [B. DNS Lookup Service Discovery on Kubernetes](#b-dns-lookup-service-discovery-on-kubernetes)
 3. [C. Middlewares](#c-middlewares)
+4. [D. Authentication](#d-authentication)
 
 <details><summary><h3>A. Nodes in Cluster</h3></summary>
 
@@ -162,6 +163,16 @@ The server endpoints are the same for all the frameworks:
    ```bash
    $ > http DELETE :3000/items/1
    ```
+
+👆 [back to index](#index)
+
+</details>
+
+<details><summary><h3>D. Authentication</h3></summary>
+
+## OAuth2 Flow in `Express.js` \ `Fastify` with GitHub as Identity Provider 
+
+![gh_oauth2](https://github.com/user-attachments/assets/76091129-2911-4e40-bfb2-866b56195ac8)
 
 👆 [back to index](#index)
 
