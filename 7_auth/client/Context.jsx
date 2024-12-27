@@ -27,22 +27,6 @@ export const AuthProvider = ({ children }) => {
                 const user = JSON.parse(atob(savedToken.split('.')[1]));
                 setUserInfo(user.username);
                 setIsAuthenticated(true);
-
-                // Attach token in the Authorization header for the request
-                fetch("/api/protected-remote-call", {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `Bearer ${savedToken}`
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log("Response from protected remote call:", data);
-                    })
-                    .catch(error => {
-                        console.error("Error during remote call:", error);
-                    });
-
             } catch (error) {
                 console.error("Failed to parse token:", error);
                 // Remove invalid token
