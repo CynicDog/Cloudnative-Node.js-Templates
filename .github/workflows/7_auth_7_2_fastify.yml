@@ -1,0 +1,45 @@
+name: 7_auth_7_2_fastify
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 7_auth/7_2_fastify/**
+  workflow_dispatch:
+
+env:
+  APP_NAME: auth_fastify
+  PROJECT_DIR: 7_auth/7_2_fastify
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.1.7
+
+      - id: lower-credentials
+        name: Lower Credentials
+        run: |
+          echo "actor=${GITHUB_ACTOR@L}" >> $GITHUB_OUTPUT
+          echo "repository=${GITHUB_REPOSITORY@L}" >> $GITHUB_OUTPUT
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3.3.0
+        with:
+          registry: ghcr.io
+          username: ${{ steps.lower-credentials.outputs.actor }}
+          password: ${{ secrets.GHCR_PAT }}
+
+      - name: Build Docker image
+        run: |
+          cd ${{ env.PROJECT_DIR }} && \
+          docker build \
+            --build-arg CLIENT_ID=${{ secrets.OAUTH_GITHUB_CLIENT_ID }} \
+            --build-arg CLIENT_SECRET=${{ secrets.OAUTH_GITHUB_CLIENT_SECRET }} \
+            -t ghcr.io/${{ steps.lower-credentials.outputs.repository }}/${{ env.APP_NAME }}:latest .  
+
+      - name: Push Docker image to GHCR
+        run: |
+          docker push ghcr.io/${{ steps.lower-credentials.outputs.repository }}/${{ env.APP_NAME }}:latest
