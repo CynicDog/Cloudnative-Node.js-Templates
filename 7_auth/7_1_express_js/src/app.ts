@@ -1,44 +1,27 @@
 import express from "express";
 import cookieParser from "cookie-parser";
-import cors from "cors";
-import { RedisController } from "./controllers/RedisController";
-import { GithubController } from "./controllers/GitHubController"; // Import the RedisController class
+import { AuthController } from "./controllers/AuthController";
+import {ProtectedController} from "./controllers/ProtectedController"; // Import the RedisController class
 
 const app = express();
 const PORT = 3000;
 
-const FRONTEND_HOST = process.env.FRONTEND_HOST!;
-const FRONTEND_PORT = process.env.FRONTEND_PORT!;
-
-const corsOptions = {
-    origin: `http://${FRONTEND_HOST}:${FRONTEND_PORT}`,
-    credentials: true,
-};
-
-// Create an instance of the RedisController
-const redisController = new RedisController();
-const githubController = new GithubController();
+const authController = new AuthController();
+const protectedController = new ProtectedController();
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors(corsOptions));
-
-// http :3000/redis/foo?key=myKey
-app.get("/redis/foo", (req, res) =>
-    redisController.getFoo(req, res)
-);
-
-// http POST :3000/redis/foo key=myKey value=MyValue
-app.post("/redis/foo", (req, res) =>
-    redisController.postFoo(req, res)
-);
 
 app.get("/sign-in", (req, res) =>
-    githubController.signIn(req, res)
+    authController.signIn(req, res)
 )
 
 app.get("/callback", (req, res) =>
-    githubController.callback(req, res)
+    authController.callback(req, res)
+)
+
+app.get("/protected-remote-call", (req, res) =>
+    protectedController.getSomeResource(req, res)
 )
 
 // Start the Express server
