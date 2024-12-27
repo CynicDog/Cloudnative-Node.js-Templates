@@ -3,7 +3,7 @@ import { useAuth } from "../Context.jsx";
 import { useEffect, useState } from "react";
 
 function App() {
-    const { isAuthenticated, userInfo } = useAuth();
+    const { isAuthenticated, username } = useAuth();
     const [repositories, setRepositories] = useState(null);
 
     useEffect(() => {
@@ -38,7 +38,7 @@ function App() {
         <>
             {isAuthenticated ? (
                 <>
-                    <h2>Authenticated! Hello, {userInfo.username} 👋</h2>
+                    <h2>Authenticated! Hello, {username} 👋</h2>
                     {repositories && repositories.length > 0 ? (
                         <div style={{ paddingTop: "25px", textAlign: "left" }}>
                             <h4>Repositories ({repositories.length})</h4>

@@ -4,7 +4,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [userInfo, setUserInfo] = useState(null);
+    const [username, setUsername] = useState(null);
 
     useEffect(() => {
         // Check for token in URL
@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
             try {
                 // Decode token to extract user info if needed
                 const user = JSON.parse(atob(savedToken.split('.')[1]));
-                setUserInfo(user.username);
+                setUsername(user.username);
                 setIsAuthenticated(true);
             } catch (error) {
                 console.error("Failed to parse token:", error);
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
 
     const value = {
         isAuthenticated,
-        userInfo
+        username
     };
 
     return (
