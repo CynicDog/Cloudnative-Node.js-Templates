@@ -1,13 +1,13 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import { AuthController } from "./controllers/AuthController";
-import {GitHubController} from "./controllers/GitHubController"; // Import the RedisController class
+import { GitHubController } from "./controllers/GitHubController"; 
 
 const app = express();
 const PORT = 3000;
 
 const authController = new AuthController();
-const protectedController = new GitHubController();
+const githubController = new GitHubController();
 
 app.use(cookieParser());
 app.use(express.json());
@@ -21,7 +21,7 @@ app.get("/callback", (req, res) =>
 )
 
 app.get("/github/repositories", (req, res) =>
-    protectedController.getRepositories(req, res)
+    githubController.getRepositories(req, res)
 )
 
 // Start the Express server
